@@ -24,3 +24,6 @@ List 2:
 [Course Github](https://github.com/Code-Maven/wis-python-course-2025-03)
 
 ![Arbok](https://github.com/waychalkedar/waychalkedar.github.io/blob/main/arbok.jpg)
+
+## Windows
+
