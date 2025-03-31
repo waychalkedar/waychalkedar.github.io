@@ -1,6 +1,9 @@
 # Heading 1
 
 Some **text** here 
+Second line
+
+Third line
 
 ---
 
@@ -15,5 +18,5 @@ List:
 
 List 2:
 1. Item 1
-2. Item 2
 3. Item 3
+4. Item 4
