@@ -1,0 +1,24 @@
+title: Kedar Waychal
+description:
+baseurl: ""
+
+username: username
+typing_text: WIS Introduction to Programming (Python)
+email: waychalkedar@gmail.com
+
+github_username: waychalkedar
+twitter_username: kedarw11037
+
+show_aboutme_card: true
+
+about_me_title: About Me
+about_me_description: Description
+
+show_skills_card: true
+
+show_timeline_card: true
+timeline_title: timeline title
+
+show_projects_card: true
+
+repository: waychalkedar/waychalkedar.github.io
