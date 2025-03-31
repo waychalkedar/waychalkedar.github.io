@@ -17,6 +17,10 @@ List:
 ---
 
 List 2:
-1. Item 1
-3. Item 3
-4. Item 4
+1. Item 1 # The website automatically creates the ordered numbering 
+1. Item 3
+1. Item 4
+
+[Course Github](https://github.com/Code-Maven/wis-python-course-2025-03)
+
+![Arbok](https://img.pokemondb.net/artwork/large/arbok.jpg)
