@@ -15,7 +15,9 @@ I'm from Navi Mumbai, India. I completed my Bachelor's + Master's in Chemistry, 
 | *Figure taken from [a review on mitochondrial G-quadruplex sensors](https://doi.org/10.1016/j.jphotochemrev.2023.100619) showing probe Q15 localization with mitochondria, indicated by the thread-like structures visible and co-staining with MitoTracker Green* |
 
 When I'm not working, I spend my time practicing the *bansuri*, playing gacha games like *Arknights* and *Reverse:1999*, and bingeing manga.
+
 ---
+
 ## Programming stuff
 
 Here is the [repository](https://github.com/waychalkedar/python-course-assignments) for assignments as a part of the course.
