@@ -1,9 +1,10 @@
-# Heading 1
+# Kedar Waychal
 
-Some **text** here 
-Second line
+<button name="Github repo" onclick="https://github.com/waychalkedar/waychalkedar.github.io">Github repo</button>
 
-Third line
+Welcome to the webpage of Kedar Waychal, PhD Student at the Weizmann Institute of Science.
+
+This page was created as part of the [WIS Python](https://github.com/Code-Maven/wis-python-course-2025-03) course
 
 ---
 
