@@ -12,7 +12,7 @@ I'm from Navi Mumbai, India. I completed my Bachelor's + Master's in Chemistry, 
 
 | ![mtG4 sensor](https://ars.els-cdn.com/content/image/1-s2.0-S1389556723000503-gr29.jpg) | 
 |:--:| 
-| *Figure taken from [a review on mitochondrial G-quadruplex sensors](https://doi.org/10.1016/j.jphotochemrev.2023.100619) showing probe Q15 localization with mitochondria, indicated by the thread-like structures visible and co-staining with MitoTracker Green* |
+| *Figure taken from [a review on mitochondrial G-quadruplex sensors](https://doi.org/10.1016/j.jphotochemrev.2023.100619) showing probe Q15 localization with mitochondria, indicated by the thread-like structures visible and co-staining with MitoTracker Green. This is not my work, I for sure did not get images as pretty as these* |
 
 When I'm not working, I spend my time practicing the *bansuri*, playing gacha games like *Arknights* and *Reverse:1999*, and bingeing manga.
 
