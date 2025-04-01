@@ -24,3 +24,6 @@ Here is the [repository](https://github.com/waychalkedar/python-course-assignmen
 
 I have also made a [repository for a course](https://github.com/waychalkedar/mm722-iitb) during my undergraduate containing a few of the Jupyter notebooks I used in the course to process and generate plots from data.
 
+## Contact
+
+You can reach out to me on my [Weizmann email](kedar.waychal@weizmann.ac.il). I'm also present (but not very active) on [Twitter/X](https://x.com/kedarw11037).
