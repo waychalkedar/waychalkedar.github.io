@@ -26,4 +26,4 @@ I have also made a [repository for a course](https://github.com/waychalkedar/mm7
 
 ## Contact
 
-You can reach out to me on my [Weizmann email](kedar.waychal@weizmann.ac.il). I'm also present (but not very active) on [Twitter/X](https://x.com/kedarw11037).
+You can reach out to me on my <a href="mailto:kedar.waychal@weizmann.ac.il">Weizmann email</a>. I'm also present (but not very active) on [Twitter/X](https://x.com/kedarw11037).
