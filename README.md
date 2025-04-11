@@ -1,6 +1,6 @@
 Welcome to my webpage! This page was created as part of the [WIS Python course](https://github.com/Code-Maven/wis-python-course-2025-03).
 
-<button name="Github repo" onclick="https://github.com/waychalkedar/waychalkedar.github.io">My Github repository</button>
+You can find the Github repository for my website [here](https://github.com/waychalkedar/waychalkedar.github.io)
 
 ---
 
