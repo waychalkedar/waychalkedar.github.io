@@ -188,3 +188,168 @@ for char in original:
 	encoded += char
 ```
 DRY: Don't Repeat Yourself. The notion is that, if you're having to write the same code more than once (twice, to be conservative), then it's not good. That's because, say you copy-paste the code in multiple places. Something comes up (there's a bug or there's a feature you or someone else wants to add/modify), and only one copy is replaced. The other instances are still unchanged which can cause issues that become headaches to debug.
+
+## Day 05: 15-05-25
+
+From the example ``,
+```python
+data = [
+    ["Foo Bar", 42],
+    ["Bjorg", 12345],
+    ["Roza", 7],
+    ["Long Name Joe", 3],
+    ["Joe", 12345677889],
+]
+
+for entry in data:
+	print("{} {}".format(entry[0], entry[1]))
+
+print('-' * 16)
+
+for entry in data:
+	print("{<:8}|{:>7}".format(entry[0], entry[1]))
+```
+this gives
+```python
+Foo Bar 42 
+Bjorg 12345 
+Roza 7 
+Long Name Joe 3 
+Joe 12345677889 
+----------------
+Foo Bar |     42 
+Bjorg   |  12345 
+Roza    |      7 
+Long Name Joe|      3
+Joe     |12345677889
+```
+`<:8` left aligns the string, and pads it on the right if the string is <8 characters. `:>7` pads to the left and aligns to the left. You can change these numbers if needed - you can see `Long Name Joe` gets printed in a somewhat undesirable way.
+
+You can use slices with steps. `slice.py` is:
+```python
+letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
+
+print(letters[::])       # ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
+
+print(letters[::1])      # ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
+
+print(letters[::2])      # ['a', 'c', 'e', 'g', 'i']
+
+print(letters[1::2])     # ['b', 'd', 'f', 'h', 'j']
+
+print(letters[2:8:2])    # ['c', 'e', 'g']
+
+print(letters[1:20:3])   # ['b', 'e', 'h']
+
+print(letters[20:30:3])  # []
+
+print(letters[8:3:-2])   # ['i', 'g', 'e']
+```
+Even though you give indices outside the list's scope like in the 2nd and 3rd last examples, they don't throw errors. Interesting to note.
+
+An example of list assignment:
+```python
+fruits = ['apple', 'banana', 'peach', 'kiwi']
+salad = fruits
+fruits[0] = 'orange'
+print(fruits)   # ['orange', 'banana', 'peach', 'kiwi']
+print(salad)    # ['orange', 'banana', 'peach', 'kiwi']
+```
+This happens because copying a list this way still makes it so that they access the same memory location. An analogy is, a person has a name but also a nickname. When you say "`Name`, walk around", `Nickname` also moves around.
+
+The reasoning behind this decision, according to Gabor, is to save memory. This becomes relevant for very large (and realistic) lists. Say a list has a million entries. When you do an assignment, you don't want there to be two million-length lists.
+
+Workaround:
+```python
+fruits = ['apple', 'banana', 'peach', 'kiwi']
+salad = fruits[:] # You copy the list by "slicing" the entire original list
+fruits[0] = 'orange'
+print(fruits)   # ['orange', 'banana', 'peach', 'kiwi']
+print(salad)    # ['apple', 'banana', 'peach', 'kiwi']
+```
+This is not perfect:
+```python
+fruits = ['apple', ['banana', 'peach'], 'kiwi']
+print(fruits)        # ['apple', ['banana', 'peach'], 'kiwi']
+print(fruits[0])     # apple
+print(fruits[1][0])  # banana
+
+salad = fruits[:]
+
+fruits[0] = 'orange'
+fruits[1][0] = 'mango'
+
+print(fruits)  # ['orange', ['mango', 'peach'], 'kiwi']
+print(salad)   # ['apple', ['mango', 'peach'], 'kiwi']
+```
+The `:` approach is called making a shallow copy. The `deepcopy()` function is what you need in such cases:
+```python
+from copy import deepcopy
+
+fruits = ['apple', ['banana', 'peach'], 'kiwi']
+print(fruits)        # ['apple', ['banana', 'peach'], 'kiwi']
+print(fruits[0])     # apple
+print(fruits[1][0])  # banana
+
+salad = deepcopy(fruits)
+
+fruits[0] = 'orange'
+fruits[1][0] = 'mango'
+
+print(fruits)  # ['orange', ['mango', 'peach'], 'kiwi']
+print(salad)   # ['apple', ['banana', 'peach'], 'kiwi']
+```
+<b>Internal Clock</b>
+> Computers use a certain amount of bits for their "units of memory". For a long time, it was 32-bit, but now many PCs use 64-bit.
+> For a PC, the internal clock stores the date. It does it by counting in seconds from 1 January 1970 (why???)
+> The 32-bit internal clock will run out of capability to count after the year 2038. And so, many computers and/or programs that rely on the 32-bit nature will be screwed
+> This is the [year 2038 problem/Y2K38](https://en.wikipedia.org/wiki/Year_2038_problem)
+
+`join.py` has useful examples of combining information from lists. The CSV example is important.
+
+<b>The `map()` function</b>:
+Takes two arguments: another function itself, and a list.
+It prints a list containing the results of the function output on each element of the given list.
+Example:
+```python
+b = ["x", 2, "y"]
+
+print(":".join(map(str, b)))       # x:2:y
+# Using list comprehension
+print(":".join(str(x) for x in b)) # x:2:y
+```
+`remove()` removes an element by value. `pop()` removes an element by index. You can also assign an empty list to a slice to remove multiple elements, like `list[1:3] = []`.
+
+<b>FIFO</b>: First In, First Out - Like a queue \
+<b>LIFO</b>: Last In, First Out - Like a stack
+
+<b>Calculator exercise</b>: \
+`2 + 3 * 7`\
+A regular calculator, where the operators are "infixed" between the operands \
+`+ * 2 3 7`\
+A Polish calculator, here the operators are "prefixed" before the operands. \
+`2 3 7 * +`\
+A reverse Polish calculator. Note the suffixed operators, and how the operators are in a "reverse" direction. The idea is that it is implemented via a stack, so the last operator is used in the expression first (not calculated first, you follow BODMAS order for the actual calculation).
+
+From the [Wikipedia](https://en.wikipedia.org/wiki/Reverse_Polish_notation), 
+>The advantage of reverse Polish notation is that it removes the need for order of operations and parentheses that are required by [infix notation](https://en.wikipedia.org/wiki/Infix_notation "Infix notation") and can be evaluated linearly, left-to-right. For example, the infix expression (3 + 4) × (5 + 6) becomes 3 4 + 5 6 + × in reverse Polish notation.
+
+You can supply a function to a list to act on the elements using the `key` argument inside `sort()` to sort the list according to some feature. The example below sorts the list in descending order purely by magnitude. 
+```python
+numbers = [7, 2, -4, 19, 8]
+numbers.sort(key = abs, reverse = True)
+print(numbers) # [19 8 7 -4 2]
+```
+The `sorted()` method creates a shallow copy of the list, leaving the original intact. 
+
+Tuple: Immutable.
+
+Go through the [tuples chapter](https://slides.code-maven.com/python/tuples.html), many new things.
+
+The `sort_by_two_keys.py` example:
+```python
+print(sorted(planets1, key = lambda w: (len(w), w)))
+```
+Here, your `key` is the function that changes each element `w` in `planets1` to a tuple containing its length and value. So, like how tuples are sorted, the first tuple entry across all elements is checked, and then the second entry. Basically, you convert the elements to tuples to sort according to multiple criteria in some sequence.
+
+Try doing more [exercises](https://slides.code-maven.com/python/exercise-dna-sequencing.html) from this chapter.
