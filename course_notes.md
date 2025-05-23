@@ -189,7 +189,7 @@ for char in original:
 ```
 DRY: Don't Repeat Yourself. The notion is that, if you're having to write the same code more than once (twice, to be conservative), then it's not good. That's because, say you copy-paste the code in multiple places. Something comes up (there's a bug or there's a feature you or someone else wants to add/modify), and only one copy is replaced. The other instances are still unchanged which can cause issues that become headaches to debug.
 
-## Day 05: 15-05-25
+## Day 5: 15-05-25
 
 From the example ``,
 ```python
@@ -353,3 +353,69 @@ print(sorted(planets1, key = lambda w: (len(w), w)))
 Here, your `key` is the function that changes each element `w` in `planets1` to a tuple containing its length and value. So, like how tuples are sorted, the first tuple entry across all elements is checked, and then the second entry. Basically, you convert the elements to tuples to sort according to multiple criteria in some sequence.
 
 Try doing more [exercises](https://slides.code-maven.com/python/exercise-dna-sequencing.html) from this chapter.
+
+## Day 6: 22-05-25
+You can, interestingly, open an image file or something else absurd in Notepad - it'll just show up as unreadable stuff.
+
+Python Image Library (PIL): Installed as `pip install pillow` but you use it as `PIL` inside code.
+
+<b>YAML file</b> /
+Used as configuration files to store some kind of structure in a human-readable way. /
+YAML and JSON are different. YAML is more human-readable; it's made for configuration files to be read and edited. JSON is more suitable to communicate data across applications
+
+<i>File handler</i> /
+A general name for processes that connect the program to the file location. It does not imply reading/loading the file into memory
+
+`str.strip(arg)`: Strips a string of the chara `arg` and returns the modified string. By default when you don't pass an argument, the function removes whitespaces.
+
+The `read_report.py` example is a good basic example at text file handling.
+
+Why you should use the `with` method to open files: /
+Often, people forget the `fh.close()` line, so files are kept open throughout. Here, open = connect to the file location, not load it. Your computer can only open so many files (is relevant when you want to loop over a large list of files or just open a ton of different files). The `with` way makes sure the file is closed after the required processing is done.
+
+`str.rstrip("\n")`: Removes a new line by recognizing the newline escape sequence from the right side of the string. You don't need to have the character in your text file, it's internally recognized since a new line is encoded with that escape sequence.
+
+For the `try except` block, you can circumvent having to give the specific error by using `except Exception`:
+```python
+filename = 'examples/files/unicorns.txt'
+
+try: 
+	with open(filename, 'r') as fh:
+		lines = fh.readlines()
+except Exception as err:
+	print("There is an error in operation")
+	print(err)					# [Errno 2] No such file or directory: 'examples/files/unicorns.txt'
+	print(type(err).__name__)	# FileNotFoundError
+```
+A better example of this in `average_from_files.py`:
+```python
+import  sys
+
+def main():
+    for filename in sys.argv[1:]:
+        try:
+            do_some_stuff(filename)
+        except Exception as err:
+            print(f"trouble with '{filename}': Error: {err}")
+
+def do_some_stuff(filename):
+    with open(filename) as fh:
+        total = 0
+        count = 0
+        for line in fh:
+            number = float(line)
+            total += number
+            count += 1
+        print("Average: ", total/count)
+
+main()
+```
+If
+1. a loaded file does not exist: You get a FileNotFoundError, reported as such
+2. a loaded file is empty: the internal `for` loop in `do_some_stuff()` never executes, so you have a division by 0. That is a ZeroDivisionError, reported as such. 
+
+It's good practice to read files into memory (`open(filename, "r")`), do some changes, and then read the file again for writing (`open(filename, "w"`) and then write out the entire changed file. When working on the physical disk itself, you can't shuffle data around. If you want to replace a word with a longer word, you need to read the file, write the file till just before the word, write the changed word, and then write out the rest of the file. But, shuffling around things can be done easily in the memory. So, it's more ideal to work on files in the memory (which is what `open(filename, "r")` does) rather than working on the physical disk itself (which is what `open(filename, "w")` does).
+
+Using this kind of reading files with `open()` is called <i>low level reading</i>.
+
+<b>Serializing/marshalling</b>: Converting data into a single dictionary for JSON.
