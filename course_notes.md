@@ -1,4 +1,4 @@
-## Day 1: 27/03/2025
+## Day 1: 27-03-25
 
 <b>Git</b> \
 A version-control system that tracks changes. Github is a website where you can share files with the git version-control tracking changes online
@@ -13,7 +13,7 @@ Files created:
 
 I made a conda environment `wis-python` using Anaconda Prompt. You can’t name environments using VS Code or locally access the environment to install packages specifically for the environment with `$ pip install openpyxl`. So, I installed openpyxl through Anaconda Prompt.
 
-## Day 2: 03-04-2025
+## Day 2: 03-04-25
 
 To suggest changes to things online w/o needing to clone the repo locally, you can _fork_ the repository to your account, make the change, and submit a _pull request_ to incorporate the change.
 
@@ -419,3 +419,139 @@ It's good practice to read files into memory (`open(filename, "r")`), do some ch
 Using this kind of reading files with `open()` is called <i>low level reading</i>.
 
 <b>Serializing/marshalling</b>: Converting data into a single dictionary for JSON.
+
+## Day 7: 29-05-25
+
+You can add elements to an empty dictionary very easily:
+```python
+planets = {}
+with open(filename, "r") as fh:
+	for row in fh:
+		row = row.rstrip("\n")
+		t = row.split(":") # split() returns a tuple
+		if len(t) != 2:
+			print(f"Not good {row}")
+			continue
+		planets, distance = t
+		planets[planet] = distance # This line adds key value pairs
+```
+In general, it's better to try to prevent exceptions than handle them using `try except` blocks over everything.
+
+The `shared_memory.py` example:
+```python
+people = [
+    {
+       "name" : "Foo",
+       "id"   : "1",
+    },
+    {
+       "name" : "Bar",
+       "id"   : "2",
+    },
+    {
+       "name" : "Moo",
+       "id"   : "3",
+    },
+]
+```
+If you searched for an ID of a given person in the above dict directly, it would take you O(3) time. For a dictionary (or list) of size n, it would take O(n) time. However, accessing the keys only of a dictionary is immediate i.e. takes O(1) time.
+```python
+by_name = {}
+by_id = {}
+for person in people:
+    by_name[ person['name' ] ] = person
+    by_id[ person['id' ] ] = person
+```
+We turn people into two dictionaries, `by_name` and `by_id`. `by_name` is a dictionary with the person name as the key. `by_id` is the same with the person ID as key. The values for each case are the corresponding dictionaries within the larger dictionary people.
+
+This shows how you can work around a more cumbersome data structure to look up a particular value.
+
+For the amino acids exercise/assignment, it's suggested that your program first creates a reverse lookup table (i.e. the codons are the keys and the amino acids are the values), so searching through it for a specific codon's amino acid doesn't take too long. If you have time, try both implementations - with and without the reverse table.
+
+**Set**:
+Doesn't care about copies of elements. It only represents unique values.
+An empty set is defined using the `set()` command. You can't use `{}` - this would create an empty dictionary.
+
+_Levels of avoiding copy-pasting or reducing code_:
+You copy and paste the block multiple times -> You make a function and call that function multiple times -> You make a function, store it in a separate file, import that file and then use the function multiple times.
+
+The third option doesn't exactly improve the copy-pasting issue, but it reduces the bulk of the main code (the _front end_) by sending the function to a different program (the _back end_).
+
+Functions can either have positional arguments or properly defined arguments. Example:
+```python
+def sendmail(From, To, Subject, Content):
+    print('From:', From)
+    print('To:', To)
+    print('Subject:', Subject)
+    print('')
+    print(Content)
+
+# Positional parameters, need to be ordered correctly
+sendmail('gabor@szabgab.com',
+    'szabgab@gmail.com',
+    'self message',
+    'Has some content too')
+
+# Named parameters, can be ordered however
+sendmail(
+    Subject = 'self message',
+    Content = 'Has some content too',
+    From = 'gabor@szabgab.com',
+    To = 'szabgab@gmail.com',
+)
+```
+It's not a good idea to mix positional and named parameters. When you do, you must first write the positional parameters and then the named parameters (like how you often do for `matplotlib` functions).
+
+**pylint**:
+Something you can install with `python install pylint` and use to comb through your code and return errors. `pylint -E test.py` will check your code for major issues (and not things like extra spaces, indents or something).
+
+## Day 8: 05-06-25
+
+When Python loads modules, it follows a [search path](https://slides.code-maven.com/python/path-to-load-modules-from.html). What is important for you is the first point.
+If you want to know where a module/library is located, you can use the `path` attribute. Example: `sys.path` will let you know where the `sys` module is installed and where Python access it from.
+
+**The `__name__` attribute:**
+`mymodule.py`:
+```python
+def run():
+    print("run in ", __name__)
+
+print("Name space in mymodule.py ", __name__) # __main__
+
+if __name__ == '__main__': # This will execute
+    run()
+```
+`import_mymodule.py`:
+```python
+import mymodule # This call will itself run the mymodule program
+                # and gives the output: 
+                # Name space in mymodule.py mymodule
+# This happens because now mymodule is accessed from import_mymodule
+# And so, the __name__ attribute of mymodule as called from import_mymodule
+# is the name of the file (i.e. "mymodule")
+
+print("Name space in import_mymodule.py ", __name__) # __main__
+mymodule.run() # Output:
+			   # run in mymodule
+# Same reason as before as to why the __name__ called inside mymodule
+# is now "mymodule". If you had a third file "myothermodule.py",
+# the output would be: run in myothermodule
+```
+Using parantheses in regexes is called *capturing*.
+
+The `?` in regex is also a quantifier like `+`.
+
+In `r'-.*-'`, there can be nothing between the hyphens too to match.
+To match a `-` inside a character class, it needs to be at the end e.g. `r^[0-9X-]`.
+
+```python
+import  re
+
+text = "This is <a string> with some <sections> marks."
+
+m = re.search(r'<.*>', text)
+if m:
+    print(m.group(0))
+```
+Here, because `.*` is a greedy expression, it matches the entirety of the string to the right of `<`. Then, `>` is checked starting from the right side.
+To avoid this greediness, you can use `?` as `r'<.*?>'`. To work around the greediness, you can have `r'<[^>]*>`
